@@ -155,7 +155,6 @@ Alternatives to JLink are e.g. armfly H7-Tool.
 
 ## Acknowledgment
 
-This builds upon the work of Jose Barros, [DeividAlfa](https://github.com/deividAlfa/stm32_soldering_iron_controller), [Dreamcat4](https://github.com/dreamcat4/t12-t245-control
-lers-docs) and many others.
+This builds upon the work of Jose Barros, [DeividAlfa](https://github.com/deividAlfa/stm32_soldering_iron_controller), [Dreamcat4](https://github.com/dreamcat4/t12-t245-controllers-docs) and many others.
 
 _not truncated_
