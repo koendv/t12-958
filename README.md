@@ -4,8 +4,6 @@ The Quecoo T12-958 / KSGER v2.1S is a T12 soldering station using the MM32SPIN27
 
 ## Main screen
 
-Here is a [video](https://raw.githubusercontent.com/koendv/t12-958/main/pictures/running_large.mp4) of the soldering station powering up.
-
 The OLED display show the state of the soldering iron:
 
 ![running](pictures/running_large.png)
@@ -42,6 +40,8 @@ A short click will switch the soldering station from running ⇨ boost ⇨ stand
 ![menu](pictures/menu_large.png)
 
 A long press - a second or more - will switch to the settings menu. The menu allows changing and saving default values.
+
+Here is a [video](https://raw.githubusercontent.com/koendv/t12-958/main/pictures/running_large.mp4) of the soldering station powering up.
 
 ## Saving Settings
 
