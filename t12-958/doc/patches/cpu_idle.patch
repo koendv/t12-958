@@ -1,0 +1,70 @@
+diff --git a/t12-958/menu_screen.cpp b/t12-958/menu_screen.cpp
+index 3080b94..3033147 100644
+--- a/t12-958/menu_screen.cpp
++++ b/t12-958/menu_screen.cpp
+@@ -21,6 +21,8 @@
+ #include "free_ram.h"
+ #include "settings.h"
+ 
++extern uint32_t cpu_idle();
++
+ namespace menu_screen {
+ #define	fontName	u8g2_font_7x13_mf
+ #define	fontX		7
+@@ -361,10 +363,12 @@ MENU(settingsMenu, "Settings", doNothing, anyEvent, noStyle,
+ // sysinfo menu
+ 
+ static uint32_t ram_free_bytes	= 0;
++static uint32_t cpu_idle_percent= 0;
+ 
+ static result onSysInfo()
+ {
+   ram_free_bytes = free_ram();
++  cpu_idle_percent = cpu_idle();
+   return (proceed);
+ }
+ 
+@@ -382,6 +386,7 @@ MENU(sysinfoMenu, "System info", onSysInfo, enterEvent, noStyle,
+  OP("SW: " __DATE__, doNothing, noEvent),
+  OP("HW: " BOARD_NAME, doNothing, noEvent),
+  FIELD(ram_free_bytes, "ram", " bytes free", 0, 0xffff, 32, 1, doNothing, noEvent, noStyle),
++ FIELD(cpu_idle_percent, "cpu", "% idle", 0, 100, 32, 1, doNothing, noEvent, noStyle),
+  EXIT("Back")
+  );
+ 
+diff --git a/t12-958/t12-958.ino b/t12-958/t12-958.ino
+index 3ccef36..8b0707f 100644
+--- a/t12-958/t12-958.ino
++++ b/t12-958/t12-958.ino
+@@ -1,7 +1,10 @@
+ #include <RTTStream.h>
+ #include <T12Encoder.h>
+ #include <U8g2lib.h>
++#define _TASK_SLEEP_ON_IDLE_RUN
++#define _TASK_TIMECRITICAL
+ #include <TaskScheduler.h>
++//#include <TaskSchedulerDeclarations.h>
+ #include "clock.h"
+ #include "buzzer.h"
+ #include "display.h"
+@@ -32,6 +35,12 @@ Task task_adc(100, TASK_FOREVER, &measure::TaskADC, &ts);
+ Task tBuzzer(1, TASK_ONCE, NULL, &ts);
+ Task task_iron(1000/PID_HZ, TASK_FOREVER, &iron::TaskIron, &ts);
+ 
++uint32_t cpu_idle()
++{
++  uint32_t idle_percent = ts.getCpuLoadIdle() * 100 / ts.getCpuLoadTotal();
++  return idle_percent;
++}
++
+ void setup()
+ {
+   //Serial.blockUpBufferFull();
+@@ -51,6 +60,7 @@ void setup()
+   measure::setup();
+   iron::setup(); // XXX order
+   ts.enableAll();
++  ts.cpuLoadReset();
+   Serial.print(free_ram());
+   Serial.println(" bytes free");
+   Serial.println("use arrow keys");

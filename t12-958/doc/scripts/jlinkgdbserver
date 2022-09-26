@@ -1,0 +1,2 @@
+#!/bin/bash
+rlfe /opt/jlink/JLinkGDBServer -device MM32L072XX -if SWD -speed 1000 $*

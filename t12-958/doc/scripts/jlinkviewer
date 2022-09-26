@@ -1,0 +1,2 @@
+#!/bin/bash
+/opt/jlink/JLinkRTTViewerExe -a --device MM32L072XX -if SWD -speed 1000

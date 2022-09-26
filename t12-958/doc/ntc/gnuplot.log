@@ -1,0 +1,96 @@
+0	0
+0.048828125	50
+0.09912109375	100
+0.149658203125	150
+0.19921875	200
+0.247314453125	250
+0.292724609375	300
+0.335205078125	350
+0.374267578125	400
+0.40966796875	450
+0.446044921875	500
+0.469970703125	550
+0.495361328koen@raspberrypi:~/src/ntc $ gnuplot
+
+	G N U P L O T
+	Version 5.4 patchlevel 1    last modified 2020-12-01 
+
+	Copyright (C) 1986-1993, 1998, 2004, 2007-2020
+	Thomas Williams, Colin Kelley and many others
+
+	gnuplot home:     http://www.gnuplot.info
+	faq, bugs, etc:   type "help FAQ"
+	immediate help:   type "help"  (plot window: hit 'h')
+
+Terminal type is now 'wxt'
+gnuplot> fit a*x**4+b*x**3+c*x**2+d*x 'hightemp.dat' via a,b,c,d
+iter      chisq       delta/lim  lambda   a             b             c             d            
+   0 4.4492134854e+06   0.00e+00  2.29e-01    1.000000e+00   1.000000e+00   1.000000e+00   1.000000e+00
+   1 1.0224779875e+04  -4.34e+07  2.29e-02    2.340199e+02   3.712490e+02   5.664308e+02   8.363853e+02
+   2 1.8510859912e+03  -4.52e+05  2.29e-03    1.464768e+03   1.003076e+03  -3.144917e+02   9.682270e+02
+   3 3.1315557852e+02  -4.91e+05  2.29e-04    5.329357e+03  -1.894508e+03  -4.667790e+01   1.057633e+03
+   4 1.5294040017e+02  -1.05e+05  2.29e-05    9.444734e+03  -6.661254e+03   1.652696e+03   8.788374e+02
+   5 1.5290843329e+02  -2.09e+01  2.29e-06    9.503580e+03  -6.729616e+03   1.677166e+03   8.762475e+02
+   6 1.5290843329e+02  -4.31e-07  2.29e-07    9.503588e+03  -6.729626e+03   1.677169e+03   8.762471e+02
+iter      chisq       delta/lim  lambda   a             b             c             d            
+
+After 6 iterations the fit converged.
+final sum of squares of residuals : 152.908
+rel. change during last iteration : -4.30949e-12
+
+degrees of freedom    (FIT_NDF)                        : 14
+rms of residuals      (FIT_STDFIT) = sqrt(WSSR/ndf)    : 3.30485
+variance of residuals (reduced chisquare) = WSSR/ndf   : 10.922
+
+Final set of parameters            Asymptotic Standard Error
+=======================            ==========================
+a               = 9503.59          +/- 1092         (11.49%)
+b               = -6729.63         +/- 1265         (18.79%)
+c               = 1677.17          +/- 461.2        (27.5%)
+d               = 876.247          +/- 52.73        (6.017%)
+
+correlation matrix of the fit parameters:
+                a      b      c      d      
+a               1.000 
+b              -0.993  1.000 
+c               0.961 -0.987  1.000 
+d              -0.873  0.921 -0.970  1.000 
+gnuplot> fit a*x**4+b*x**3+c*x**2+d*x 'lowtemp.dat' via a,b,c,d
+iter      chisq       delta/lim  lambda   a             b             c             d            
+   0 1.6993536018e+05   0.00e+00  1.12e+02    9.503588e+03  -6.729626e+03   1.677169e+03   8.762471e+02
+   1 5.4014744539e+03  -3.05e+06  1.12e+01    1.215085e+04  -3.005857e+03   2.209081e+03   9.907747e+02
+   2 7.5888775520e+02  -6.12e+05  1.12e+00    2.434899e+04   7.276375e+02   4.922391e+02   9.744096e+02
+   3 1.7002649741e+02  -3.46e+05  1.12e-01    8.091392e+04  -2.408678e+04   2.855057e+03   1.019536e+03
+   4 9.9117539818e+01  -7.15e+04  1.12e-02    1.341304e+05  -5.565916e+04   8.641833e+03   7.042020e+02
+   5 9.9107672592e+01  -9.96e+00  1.12e-03    1.347641e+05  -5.603643e+04   8.711308e+03   7.003898e+02
+   6 9.9107672592e+01  -1.40e-07  1.12e-04    1.347641e+05  -5.603648e+04   8.711316e+03   7.003894e+02
+iter      chisq       delta/lim  lambda   a             b             c             d            
+
+After 6 iterations the fit converged.
+final sum of squares of residuals : 99.1077
+rel. change during last iteration : -1.39689e-12
+
+degrees of freedom    (FIT_NDF)                        : 8
+rms of residuals      (FIT_STDFIT) = sqrt(WSSR/ndf)    : 3.51972
+variance of residuals (reduced chisquare) = WSSR/ndf   : 12.3885
+
+Final set of parameters            Asymptotic Standard Error
+=======================            ==========================
+a               = 134764           +/- 2.255e+04    (16.73%)
+b               = -56036.5         +/- 1.337e+04    (23.87%)
+c               = 8711.32          +/- 2502         (28.73%)
+d               = 700.389          +/- 147          (20.99%)
+
+correlation matrix of the fit parameters:
+                a      b      c      d      
+a               1.000 
+b              -0.993  1.000 
+c               0.964 -0.988  1.000 
+d              -0.882  0.927 -0.972  1.000 
+gnuplot>125	600
+0.517822265625	650
+0.537353515625	700
+0.5546875	750
+0.56982421875	800
+0.582763671875	850
+

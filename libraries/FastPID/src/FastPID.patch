@@ -1,0 +1,89 @@
+diff -urN FastPID.ORIG/src/FastPID.cpp FastPID/src/FastPID.cpp
+--- FastPID.ORIG/src/FastPID.cpp	2022-09-21 10:30:55.969715429 +0200
++++ FastPID/src/FastPID.cpp	2022-09-20 19:38:36.736136188 +0200
+@@ -12,10 +12,10 @@
+   _last_err = 0;
+ }
+ 
+-bool FastPID::setCoefficients(float kp, float ki, float kd, float hz) {
+-  _p = floatToParam(kp);
+-  _i = floatToParam(ki / hz);
+-  _d = floatToParam(kd * hz);
++bool FastPID::setCoefficients(int kp, int ki, int kd, int hz) {
++  _p = intToParam(kp, SCALE);
++  _i = intToParam(ki, hz);
++  _d = intToParam(kd * hz, SCALE * SCALE);
+   return ! _cfg_err;
+ }
+ 
+@@ -52,7 +52,7 @@
+   return ! _cfg_err;
+ }
+ 
+-bool FastPID::configure(float kp, float ki, float kd, float hz, int bits, bool sign) {
++bool FastPID::configure(int kp, int ki, int kd, int hz, int bits, bool sign) {
+   clear();
+   _cfg_err = false;
+   setCoefficients(kp, ki, kd, hz);
+@@ -60,13 +60,13 @@
+   return ! _cfg_err; 
+ }
+ 
+-uint32_t FastPID::floatToParam(float in) {
+-  if (in > PARAM_MAX || in < 0) {
++uint32_t FastPID::intToParam(int in, int divisor) {
++  if (divisor == 0 || in > PARAM_MAX * divisor || in < 0) {
+     _cfg_err = true;
+     return 0;
+   }
+ 
+-  uint32_t param = in * PARAM_MULT;
++  uint32_t param = in * PARAM_MULT / divisor;
+ 
+   if (in != 0 && param == 0) {
+     _cfg_err = true;
+diff -urN FastPID.ORIG/src/FastPID.h FastPID/src/FastPID.h
+--- FastPID.ORIG/src/FastPID.h	2022-09-21 10:30:55.969715429 +0200
++++ FastPID/src/FastPID.h	2022-09-20 18:53:10.413688140 +0200
+@@ -13,6 +13,10 @@
+ #define PARAM_MAX    (((0x1ULL << PARAM_BITS)-1) >> PARAM_SHIFT) 
+ #define PARAM_MULT   (((0x1ULL << PARAM_BITS)) >> (PARAM_BITS - PARAM_SHIFT)) 
+ 
++// kp, ki, kd, hz are fixed-point numbers
++// divide kp, ki, kd, hz by SCALE to get float
++#define SCALE 10
++
+ /*
+   A fixed point PID controller with a 32-bit internal calculation pipeline.
+ */
+@@ -24,18 +28,18 @@
+     clear();
+   }
+ 
+-  FastPID(float kp, float ki, float kd, float hz, int bits=16, bool sign=false)
++  FastPID(int kp, int ki, int kd, int hz, int bits=16, bool sign=false)
+   {
+     configure(kp, ki, kd, hz, bits, sign);
+   }
+ 
+   ~FastPID();
+ 
+-  bool setCoefficients(float kp, float ki, float kd, float hz);
++  bool setCoefficients(int kp, int ki, int kd, int hz);
+   bool setOutputConfig(int bits, bool sign);
+   bool setOutputRange(int16_t min, int16_t max);
+   void clear();
+-  bool configure(float kp, float ki, float kd, float hz, int bits=16, bool sign=false);
++  bool configure(int kp, int ki, int kd, int hz, int bits=16, bool sign=false);
+   int16_t step(int16_t sp, int16_t fb);
+ 
+   bool err() {
+@@ -44,7 +48,7 @@
+ 
+ private:
+ 
+-  uint32_t floatToParam(float); 
++  uint32_t intToParam(int, int);
+   void setCfgErr(); 
+ 
+ private:

@@ -1,0 +1,8 @@
+#!bin/bash
+# compile arduino sketch
+SKETCH=t12-958
+if [ -n "$1" ]
+then
+  SKETCH=$1
+fi
+arduino-cli compile -v --export-binaries --optimize-for-debug -b SeekFree:mm32:MM32SPIN27 ~/Arduino/${SKETCH}/

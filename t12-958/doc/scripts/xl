@@ -1,0 +1,18 @@
+#!/bin/bash
+# load firmware using jlink JLinkGDBServer
+SKETCH=t12-958
+if [ -n "$1" ]
+then
+  SKETCH=$1
+fi
+arm-none-eabi-gdb -n -q \
+-ex "set confirm off" \
+-ex "set pagination off" \
+-ex "file ~/Arduino/${SKETCH}/build/SeekFree.mm32.MM32SPIN27/${SKETCH}.ino.elf" \
+-ex "tar ext :2331" \
+-ex "mon reset" \
+-ex "mon halt" \
+-ex "lo" \
+-ex "compare-sections" \
+-ex "mon reset" \
+-ex "c"
