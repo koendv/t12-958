@@ -4,9 +4,11 @@ The Quecoo T12-958 / KSGER v2.1S is a T12 soldering station using the MM32SPIN27
 
 ## Main screen
 
+Here is a [video](https://raw.githubusercontent.com/koendv/t12-958/main/pictures/running_large.mp4) of the soldering station powering up.
+
 The OLED display show the state of the soldering iron:
 
-[![running](pictures/running_large.png)](pictures/running_large.mp4)
+![running](pictures/running_large.png)
 
 The top line of the display shows power supply voltage, setpoint temperature, and cold junction temperature.
 The middle of the display shows current soldering iron tip temperature.
