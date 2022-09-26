@@ -1,6 +1,6 @@
 
 This is an interrupt-driven driver for a rotary encoder.
-For speed, the encoder pins are hardcoded to PB3 and PB4 in t12encoder.c.
+For speed, the encoder pins are hardcoded to PB3 and PB4 in t12enc.c.
 
 Rotary encoder handler for arduino. v1.1
 

@@ -1,5 +1,5 @@
 
-#include "t12encoder.h"
+#include "t12enc.h"
 #include <zf_exti.h>
 #include <isr.h>
 

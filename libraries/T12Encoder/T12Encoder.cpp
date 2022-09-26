@@ -5,7 +5,7 @@
 #include "T12Encoder.h"
 
 extern "C" {
-#include "t12encoder.h"
+#include "t12enc.h"
 }
 
 T12Encoder::T12Encoder()
