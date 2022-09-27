@@ -66,7 +66,7 @@ The pcb contains a voltage divider is made with an NTC and a pull-up resistor. T
 
 The [Steinhart-Hart equation](https://en.wikipedia.org/wiki/Steinhart%E2%80%93Hart_equation)  gives temperature as a function of NTC resistance. The Steinhart-Hart equation uses logarithm and floating point division. The MM32SPIN27 does not have hardware floating-point FPU, so using the Steinhart-Hart equation is slow and impractical for this processor.
 
-Instead, curve fitting has been used to map the adc reading to a temperature. The function ``NTCVoltageToTemp_x10`` in file ``t12-958/measure.cpp``.
+Instead, curve fitting has been used to map the adc reading to a temperature. (function ``NTCVoltageToTemp_x10`` in file ``t12-958/measure.cpp``).
 
 The NTC datasheet shows an inflection point at 25C temperature, 10K resistance. It is convenient to use two polynomials, one polynomial for temperatures above 25C, another polynomial for temperatures below 25C.
 
