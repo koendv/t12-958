@@ -57,7 +57,7 @@ void getTime(int& hr, int& min, int& sec, int& day, int& month, int& yr)
 }
 
 
-static const char *dayofweek[] = { "Sun", "Mon", "Tue", "Wednes", "Thurs", "Fri", "Satur" };
+static const char *dayofweek[] = { "Sun", "Mon", "Tues", "Wednes", "Thurs", "Fri", "Satur" };
 void print()
 {
   Time t = rtc.time();
