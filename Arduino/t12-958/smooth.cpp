@@ -5,7 +5,7 @@ static const uint32_t beta = 8;
 
 int32_t smooth::data(int32_t x)
 {
-  if (count <= beta) {
+  if (count < beta) {
     // average
     y += x;
     count++;
