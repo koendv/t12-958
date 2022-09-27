@@ -73,7 +73,7 @@ static const settings_struct default_settings =
   .cal_adc_at_250	= 1900,
   .cal_adc_at_400	= 2800,
   .tempsensor		= CPU_TEMPSENSOR,
-  .poweron		= POWERON_RUNNING,
+  .poweron		= POWERON_SLEEP,
 };
 
 settings_struct settings = default_settings;
