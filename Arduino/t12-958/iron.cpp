@@ -10,23 +10,25 @@ using namespace main_screen;
 namespace iron {
 FastPID fast_pid;
 
-static const uint32_t pwm_min_idle = (1000 - MIN_PWM_IDLE_MS * PID_HZ) * MAX_PWM / 1000;
+static const uint32_t pwm_max = MAX_PWM - 1;
+static const uint32_t hysteresis_x10 = 15;
+static bool over_temp = false;
+static bool full_power = false;
 
 void setup()
 {
   fast_pid.setCoefficients(settings.Kp_x10, settings.Ki_x10, settings.Kd_x10, PID_HZ*10);
   fast_pid.setOutputConfig(15, false);
   // need 20ms idle time to do tip temperature measurement
-  fast_pid.setOutputRange(0, pwm_min_idle);
+  fast_pid.setOutputRange(0, pwm_max);
   analogWriteResolution(15);
 }
 
 
-bool over_temp = false;
-
 void TaskIron()
 {
   int32_t setpoint, setpoint_x10;
+  int32_t threshold_x10;
 
   if (flag_no_iron) {
     iron_pwm = 0;
@@ -71,8 +73,16 @@ void TaskIron()
     setpoint_x10 = setpoint * 10;
 
     // to avoid PID wind-up, start PID controller at 10% below setpoint
-    if (unsmoothed_tip_temp_x10 < setpoint_x10 - setpoint) {
-      iron_pwm = pwm_min_idle;
+    threshold_x10 = setpoint_x10 - setpoint;
+    // add a bit of hysteresis, to avoid bang-bang control
+    if (unsmoothed_tip_temp_x10 < threshold_x10 - hysteresis_x10) {
+      full_power = true;
+    }else if (unsmoothed_tip_temp_x10 > threshold_x10 + hysteresis_x10) {
+      full_power = false;
+    }
+
+    if (full_power) {
+      iron_pwm = pwm_max;
       fast_pid.clear();
     } else {
       // use unsmoothed tip temperature as PID feedback.
@@ -83,12 +93,9 @@ void TaskIron()
   }
 
   // safety check
-  if (iron_pwm > pwm_min_idle) {
+  if (iron_pwm > pwm_max) {
     Serial.println("pwm idle too short");
-    iron_pwm = pwm_min_idle;
-  }
-  if (iron_pwm > MAX_PWM) {
-    iron_pwm = MAX_PWM;
+    iron_pwm = pwm_max;
   }
 
   // set display power bar
