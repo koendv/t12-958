@@ -62,7 +62,7 @@ The proportional–integral–derivative controller is [FastPID](https://github.
 
 ## NTC Temperature sensor
 
-The pcb contains a voltage divider is made with an NTC and a pull-up resistor. The voltage across the NTC resistor is measured with an ADC, and used to calculate temperature.
+The pcb contains a voltage divider made with an NTC and a pull-up resistor. The voltage across the NTC resistor is measured with an ADC, and used to calculate temperature.
 
 The [Steinhart-Hart equation](https://en.wikipedia.org/wiki/Steinhart%E2%80%93Hart_equation)  gives temperature as a function of NTC resistance. The Steinhart-Hart equation uses logarithm and floating point division. The MM32SPIN27 does not have hardware floating-point FPU, so using the Steinhart-Hart equation is slow and impractical for this processor.
 
