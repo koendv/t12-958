@@ -1,35 +1,35 @@
 # Custom firmware for T12-958 soldering station
 
-The Quecoo T12-958 / KSGER v2.1S is a T12 soldering station using the MM32SPIN27 Arm processor. These are usage notes. For developers' notes, see README_DEVELOPER.md.
+The Quecoo T12-958 / KSGER v2.1S is a T12 soldering station using the MM32SPIN27 Arm processor. These are usage notes. For developers' notes, see [README_DEVELOPER](README_DEVELOPER.md).
 
 ## Main screen
 
-The OLED display show the state of the soldering iron:
+The OLED display shows the state of the soldering iron:
 
 ![running](pictures/running_large.png)
 
-The top line of the display shows power supply voltage, setpoint temperature, and cold junction temperature.
-The middle of the display shows current soldering iron tip temperature.
-The bottom of the display shows a bar graph of current applied heating power.
+The top line of the display shows power supply voltage, setpoint temperature, and cold junction (ambient) temperature.
+The middle of the display shows soldering iron tip temperature.
+The bottom of the display shows a bar graph of applied heating power.
 
 ![setpoint](pictures/setpoint_large.png)
 
-There is a rotary encoder with pushbutton.
+The soldering station has a rotary encoder with pushbutton.
 Turning the knob changes setpoint temperature in steps (default: steps of 5°C). For fine adjustments in steps of 1°C first turn  the knob, then push while turning. The setpoint is displayed in inverted color.
 
-The soldering station can be running normally, in boost, standby or sleeping.
+The soldering station has four states: running, boost, standby and sleeping.
 
 ![boost](pictures/boost_large.png)
 
-When running normally, a short click will switch to boost mode. In boost mode, setpoint temperature is increased for a short time. (default: increase of 50°C for 5 minutes)
+When running, a short click of the knob will switch to boost mode. In boost mode, setpoint temperature is increased for a short time. (default: increase of 50°C for 5 minutes)
 
 ![standby](pictures/standby_large.png)
 
-If the soldering station is inactive, the soldering station goes in standby. (default: 20 minutes of inactivity, standby temperature 200°C).
+If the soldering station is inactive, after some time the soldering station goes in standby. (default: 20 minutes of inactivity, standby temperature 200°C).
 
 ![sleep](pictures/sleep_large.png)
 
-If the soldering station is inactive even longer, the soldering station sleeps. (default: 30 minutes of inactivity, heating switched off).
+If the soldering station is inactive even longer, the soldering station goes into sleep mode. (default: 30 minutes of inactivity, heating switched off).
 
 ![no iron](pictures/no_iron_large.png)
 
@@ -39,7 +39,7 @@ A short click will switch the soldering station from running ⇨ boost ⇨ stand
 
 ![menu](pictures/menu_large.png)
 
-A long press - a second or more - will switch to the settings menu. The menu allows changing and saving default values.
+A long press - a second or more - will switch to the menu. The menu allows changing and saving default values.
 
 Here is a [video](https://raw.githubusercontent.com/koendv/t12-958/main/pictures/running_large.mp4) of the soldering station powering up.
 
@@ -57,11 +57,11 @@ To measure the temperature in the soldering iron handle, four methods are possib
 
 ### CPU Temperature sensor
 
-The microcontroller has an internal temperature sensor.  The microcontroller heats up when not sleeping, therefore the internal temperature of the microcontroller may be different from the temperature of the cold junction.
+The microcontroller has an internal temperature sensor.  As the microcontroller heats up during operation, the internal temperature of the microcontroller may be different from the temperature of the cold junction.
 
 ### NTC Temperature sensor
 
-A separate document, [README_NTC](README_NTC.md), handles configuring a NTC temperature sensor.
+A separate document, [README_NTC](README_NTC.md), handles configuring the NTC temperature sensor.
 
 Instead of manually calibrating an analogue temperature sensor it is much more convenient to use factory-calibrated digital sensors.
 
@@ -79,12 +79,12 @@ For best results, put a DS18B20 in the soldering iron handle. This requires open
 
 DS18B20 in soldering iron handle. The DS18B20 has a TO-92 package, like a leaded small-signal transistor.
 
-To avoid short-circuits, cover everything in Kapton tape. Make sure blank metal can not touch other blank metal. Make sure vibration sensor and temperature sensor leads are isolated.
+To avoid short-circuits, cover everything in Kapton tape. Make sure blank metal does not touch other blank metal. Make sure vibration sensor leads do not make contact with temperature sensor leads.
 
 [![sensors wrapped](pictures/sensors_wrapped_small.jpg)](pictures/sensors_wrapped.jpg)
 
 The DS18B20 data line needs a pull-up resistor.
- On the PCB, connect the T12 connector pin "J" to pin "F" (pin PB7, UART RX) with a pull-up resistor to 3.3V. Suitable resistor values are 1K - 3.3K.
+ On the PCB, connect the T12 connector pin "J" to pin "F" (pin PB7, UART RX) with a pull-up resistor to 3.3V. Suitable resistor values are 1K - 3.3K. (picture: 2K)
 
 [![strapped for ds18b20](pictures/strapped_for_ds18b20_small.jpg)](pictures/strapped_for_ds18b20.jpg)
 
@@ -100,7 +100,7 @@ Compared to a Maxim DS18B20, the CT1820B uses less power (30&micro;A, as long as
 
 #### DS18B20 on pcb
 
-If you do not wish to modify the soldering iron handle, you can simply connect a DS18B20 to the pcb pin header. The pin header already has ground and 3.3V for the pull-up resistor.
+If you do not wish to modify the soldering iron handle, you can simply connect a DS18B20 to the pcb pin header. The pin header has ground and 3.3V for the pull-up resistor.
 
 ## Downloading firmware
 
