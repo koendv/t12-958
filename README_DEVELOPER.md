@@ -1,6 +1,9 @@
 
 The Quecoo t12-958 / KSGER v2.1S is a T12 soldering station using the MM32SPIN27 Arm processor. These are developers' notes. See README.md for users' notes.
 
+## Arduino
+
+The t12-958 soldering station uses an MM32SPIN27 processor. To compile the t12-958 firmware, first install [Arduino for MM32SPIN27](https://github.com/koendv/MM32SPIN27-Arduino). In the arduino-ide menu, choose Tools ⇨ Board ⇨ SeekFree ⇨ MM32SPIN27.
 
 ## Console
 
