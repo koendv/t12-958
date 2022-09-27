@@ -8,7 +8,7 @@ public:
   void reset();
 
 private:
-  bool first = true;
+  int32_t count = 0;
   int32_t y = 0;
 };
 

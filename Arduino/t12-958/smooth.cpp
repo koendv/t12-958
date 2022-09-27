@@ -1,15 +1,17 @@
 #include "smooth.h"
 
+// for easy calculation, choose beta a power of two.
 static const uint32_t beta = 8;
 
 int32_t smooth::data(int32_t x)
 {
-  // y is sum of beta samples
-  if (first) {
-    y = x * beta;
-    first = false;
-    return (x);
+  if (count <= beta) {
+    // average
+    y += x;
+    count++;
+    return (y / count);
   }
+  // smooth
   y = y + x - y / beta;
   return (y / beta);
 }
@@ -17,5 +19,6 @@ int32_t smooth::data(int32_t x)
 
 void smooth::reset()
 {
-  first = true;
+  count = 0;
+  y = 0;
 }
