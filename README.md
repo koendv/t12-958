@@ -4,11 +4,11 @@ The Quecoo T12-958 / KSGER v2.1S is a T12 soldering station using the MM32SPIN27
 
 ## Main screen
 
-The OLED display shows the state of the soldering iron:
+The soldering station has four states: running, boost, standby and sleeping.
 
 ![running](pictures/running_large.png)
 
-The top line of the display shows power supply voltage, setpoint temperature, and cold junction (ambient) temperature.
+When running, the top line of the display shows power supply voltage, setpoint temperature, and cold junction (ambient) temperature.
 The middle of the display shows soldering iron tip temperature.
 The bottom of the display shows a bar graph of applied heating power.
 
@@ -16,8 +16,6 @@ The bottom of the display shows a bar graph of applied heating power.
 
 The soldering station has a rotary encoder with pushbutton.
 Turning the knob changes setpoint temperature in steps (default: steps of 5°C). For fine adjustments in steps of 1°C first turn  the knob, then push while turning. The setpoint is displayed in inverted color.
-
-The soldering station has four states: running, boost, standby and sleeping.
 
 ![boost](pictures/boost_large.png)
 
@@ -164,10 +162,10 @@ Remote connection closed
  $
 ```
 
-Alternatives to JLink are e.g. armfly H7-Tool.
+In the above, at the message "continuing", there is a short beep and the display lights up.
 
 ## Acknowledgment
 
-This builds upon the work of Jose Barros, [DeividAlfa](https://github.com/deividAlfa/stm32_soldering_iron_controller), [Dreamcat4](https://github.com/dreamcat4/t12-t245-controllers-docs) and many others.
+This builds upon the work of [Jose Barros](https://github.com/PTDreamer), [DeividAlfa](https://github.com/deividAlfa/stm32_soldering_iron_controller), [Dreamcat4](https://github.com/dreamcat4/t12-t245-controllers-docs) and many others.
 
 _not truncated_
