@@ -59,6 +59,8 @@ To measure the temperature in the soldering iron handle, four methods are possib
 
 The microcontroller has an internal temperature sensor.  As the microcontroller heats up during operation, the internal temperature of the microcontroller may be different from the temperature of the cold junction.
 
+CPU is the default temperature sensor. Please change to NTC or ONEWIRE, depending upon sensor used in the soldering iron handle.
+
 ### NTC Temperature sensor
 
 A separate document, [README_NTC](README_NTC.md), handles configuring the NTC temperature sensor.
@@ -104,7 +106,18 @@ If you do not wish to modify the soldering iron handle, you can simply connect a
 
 ## Downloading firmware
 
-To download firmware, a Segger JLink debugger can be used. The MM32SPIN32 is not directly supported by JLink, but configuring as a MM32L072XX works.
+To download firmware, connect a debugger probe to the SWD connector:
+
+|Label|Pin|Function|
+|---|--|---|
+|C|PA14|SWCLK|
+|D|PA13|SWDIO|
+|GND|GND||
+|VCC|3.3V||
+|D|PB6|UART TX|
+|F|PB7|UART RX|
+
+To download firmware, a Segger JLink debugger can be used. MM32SPIN32 is not directly supported by JLink, but configuring as a MM32L072XX works.
 
 ```
 JLinkGDBServer -device MM32L072XX -if SWD -speed 1000
