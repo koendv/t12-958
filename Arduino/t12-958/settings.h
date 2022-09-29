@@ -57,6 +57,7 @@ typedef struct {
   uint32_t	sleep_time_minutes;
   uint32_t	boost_time_minutes;
   uint32_t	boost_temp;
+  uint32_t	pwm_max;
   bool		buzzer_enabled;
   int32_t	temp_step; // change in setpoint for one click of rotary encoder
   int32_t	Kp_x10;

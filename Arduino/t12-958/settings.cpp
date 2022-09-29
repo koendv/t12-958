@@ -53,25 +53,26 @@ typedef struct __attribute__((__packed__)) {
 saved_setpoint_struct;
 
 static const settings_struct default_settings =
-{ .brightness		=  255,
-  .long_press_millis	=  500,
-  .standby_time_minutes =   15,
-  .standby_temp		=  200,
-  .sleep_time_minutes	=   30,
-  .boost_time_minutes	=    5,
-  .boost_temp		=   50,
+{ .brightness		=	     255,
+  .long_press_millis	=	     500,
+  .standby_time_minutes =	      15,
+  .standby_temp		=	     200,
+  .sleep_time_minutes	=	      30,
+  .boost_time_minutes	=	       5,
+  .boost_temp		=	      50,
+  .pwm_max		= MAX_PWM/4*3,
   .buzzer_enabled	= true,
-  .temp_step		=    5,
-  .Kp_x10		=  400,
-  .Ki_x10		=  550,
-  .Kd_x10		=    0,
-  .cal_ntc_in1		=  120,
-  .cal_ntc_out1		=    0,
-  .cal_ntc_in2		= 1600,
-  .cal_ntc_out2		= 2700,
-  .cal_adc_at_0		=    0,
-  .cal_adc_at_250	= 1900,
-  .cal_adc_at_400	= 2800,
+  .temp_step		=	       5,
+  .Kp_x10		=	     400,
+  .Ki_x10		=	     550,
+  .Kd_x10		=	       0,
+  .cal_ntc_in1		=	     120,
+  .cal_ntc_out1		=	       0,
+  .cal_ntc_in2		=	    1600,
+  .cal_ntc_out2		=	    2700,
+  .cal_adc_at_0		=	       0,
+  .cal_adc_at_250	=	    1900,
+  .cal_adc_at_400	=	    2800,
   .tempsensor		= CPU_TEMPSENSOR,
   .poweron		= POWERON_SLEEP,
 };
@@ -200,6 +201,7 @@ void print_settings()
   print_item("sleep_time_minutes", settings.sleep_time_minutes);
   print_item("boost_time_minutes", settings.boost_time_minutes);
   print_item("boost_temp", settings.boost_temp);
+  print_item("pwm_max", settings.pwm_max);
   print_item("buzzer_enabled", settings.buzzer_enabled);
   print_item("temp_step", settings.temp_step);
   print_item("Kp_x10", settings.Kp_x10);

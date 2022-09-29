@@ -16,6 +16,7 @@
 #include "buzzer.h"
 #include "clock.h"
 #include "ds18b20_temp.h"
+#include "iron.h"
 #include "icons.h"
 #include "fonts.h"
 #include "free_ram.h"
@@ -167,7 +168,9 @@ CHOOSE(settings.buzzer_enabled, choose_buzzer, "Buzzer", doNothing, noEvent, noS
 
 // Iron
 
+
 MENU(iron_menu, "Iron", doNothing, anyEvent, noStyle,
+ FIELD(temp_setpoint, "Setpoint", "°C", min_temp, max_temp, settings.temp_step, 1, doNothing, noEvent, noStyle),
  FIELD(settings.standby_time_minutes, "Standby time", "min", 0, 30, 10, 1, doNothing, noEvent, noStyle),
  FIELD(settings.standby_temp, "Standby temp", "°C", min_temp, max_temp, 10, 1, doNothing, noEvent, noStyle),
  FIELD(settings.sleep_time_minutes, "Sleep delay", "min", 0, 30, 10, 1, doNothing, noEvent, noStyle),
@@ -279,10 +282,19 @@ MENU(calibrationMenu, "Calibration", doNothing, anyEvent, noStyle,
 // PID controller
 
 
+static result onControllerChange()
+{
+  iron::setup();
+  return (proceed);
+}
+
+
 MENU(controllerMenu, "Controller", doNothing, anyEvent, noStyle,
- altFIELD(FPx10, settings.Kp_x10, "Kp", "", 0, 1000, 10, 1, doNothing, noEvent, noStyle),
- altFIELD(FPx10, settings.Ki_x10, "Ki", "", 0, 1000, 10, 1, doNothing, noEvent, noStyle),
- altFIELD(FPx10, settings.Kd_x10, "Kd", "", 0, 1000, 10, 1, doNothing, noEvent, noStyle),
+ altFIELD(FPx10, settings.Kp_x10, "Kp", "", 0, 1000, 10, 1, onControllerChange, noEvent, noStyle),
+ altFIELD(FPx10, settings.Ki_x10, "Ki", "", 0, 1000, 10, 1, onControllerChange, noEvent, noStyle),
+ altFIELD(FPx10, settings.Kd_x10, "Kd", "", 0, 1000, 10, 1, onControllerChange, noEvent, noStyle),
+ FIELD(settings.pwm_max, "Max PWM", "", 0, MAX_PWM - 1, MAX_PWM/256, 1, onControllerChange, enterEvent,
+ noStyle),
  EXIT("Back")
  );
 
