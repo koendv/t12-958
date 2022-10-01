@@ -29,6 +29,10 @@ use arrow keys
 ```
 The menu on the console and the menu on the oled screen are the same.
 
+## RTT
+
+On Arm processors, the debugger can read and write processor memory through SWD or JTAG without stopping the processor. Real-Time Terminal RTT uses this to implement a console: the user program writes console output to memory, and the debugger reads it.
+
 RTT speed depends upon buffer size:
 
 |BUFFER_UP|RTT speed|
@@ -89,12 +93,12 @@ The MM32SPIN27 timers have an encoder mode, to decode rotary encoders in hardwar
 
 ## Debugger
 
+Various debuggers can be used to download firmware to the MM32SPIN27:
+
 - Segger JLink does not explicitly support MM32SPIN27 but MM32L072XX works.
-
 - OpenOCD has an old patch to support the similar [MM32L062](https://sourceforge.net/p/openocd/mailman/message/37388746/)
-
-- [H7-Tool](https://www.armfly.com/product/H7-TOOL/H7-TOOL.shtml) supports many "Made in Asia" processors, including MM32. Includes an RTT Viewer. H7-Tool is an [open-source](https://github.com/armfly/H7-TOOL_STM32H7_App) commercial product.
-
+- [AN0006](https://github.com/koendv/MM32SPIN27-Arduino/blob/main/mm32/doc/pdf/AN0006_MM32_Supported_Programmer_SC.pdf) lists officially supported debuggers/flashers (Chinese)
+- [H7-Tool](https://www.armfly.com/product/H7-TOOL/H7-TOOL.shtml) supports many "Made in Asia" processors, including MM32. Includes an RTT Viewer. H7-Tool is an [open-source](https://github.com/armfly/H7-TOOL_STM32H7_App) commercial product. (Chinese)
 - The MM32 also supports firmware download via serial port, but on the T12-958 pcb the BOOT0 pin has been soldered to ground.
 
 _not truncated_
