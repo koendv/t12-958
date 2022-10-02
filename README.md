@@ -1,4 +1,4 @@
-# Custom firmware for T12-958 soldering station
+# Custom firmware for MM32SPIN27 soldering station
 
 [![Quecoo STM32 V3.1S T12-958](pictures/quecoo-t12-958-small.jpg)](https://raw.githubusercontent.com/koendv/t12-958/main/pictures/quecoo-t12-958.jpg)
 
