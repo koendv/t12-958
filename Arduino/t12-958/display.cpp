@@ -114,11 +114,11 @@ void display_temp()
   u8g2.setFont(u8g2_font_numbers);
   // right-align temperature
   if ((tip_temp_x10 >= 0) && (tip_temp_x10 < 100)) {
-    u8g2.setCursor(tempXPos + u8g2.getStrWidth("88"), tempYPos); // 0 .. 9: move 2 digits to the right
+    u8g2.setCursor(tempXPos + u8g2.getStrWidth("88"), tempYPos);        // 0 .. 9: move 2 digits to the right
   } else if ((tip_temp_x10 >= 100) && (tip_temp_x10 < 1000)) {
-    u8g2.setCursor(tempXPos + u8g2.getStrWidth("8"), tempYPos); // 10 .. 99: move 1 digit to the right
+    u8g2.setCursor(tempXPos + u8g2.getStrWidth("8"), tempYPos);         // 10 .. 99: move 1 digit to the right
   } else if ((tip_temp_x10 > -100) && (tip_temp_x10 <= -10)) {
-    u8g2.setCursor(tempXPos + u8g2.getStrWidth("8"), tempYPos); // -9 .. -1: move 1 digit to the right
+    u8g2.setCursor(tempXPos + u8g2.getStrWidth("8"), tempYPos);         // -9 .. -1: move 1 digit to the right
   } else {
     u8g2.setCursor(tempXPos, tempYPos);
   }
@@ -163,9 +163,13 @@ void display_sleep()
 {
   /* to avoid skin burns, display temperature until iron has cooled down */
   if (!brightness_changed && (flag_no_iron || (tip_temp_x10 < 450))) {
-    /* dim screen */
+    /* cool, dim screen */
     u8g2.setContrast(0);
     brightness_changed = true;
+  } else if (brightness_changed && !flag_no_iron && (tip_temp_x10 > 500)) {
+    /* hot, restore screen brightness */
+    u8g2.setContrast(settings.brightness);
+    brightness_changed = false;
   }
   if (flag_no_iron) {
     display_no_iron();
