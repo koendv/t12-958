@@ -88,7 +88,7 @@ static void t12_adc_init()
   ADC_InitStructure.ADC_PRESCARE = ADC_PCLK2_PRESCARE_16;
   ADC_InitStructure.ADC_Mode = ADC_Mode_Single_Period;
   ADC_InitStructure.ADC_DataAlign = ADC_DataAlign_Right;
-  ADC_InitStructure.ADC_ExternalTrigConv = ADC1_ExternalTrigConv_T3_CC4;                        // XXX
+  ADC_InitStructure.ADC_ExternalTrigConv = ADC1_ExternalTrigConv_T3_CC4;                        // Trigger is Timer 3, Channel 4
   ADC_Init(ADC1, &ADC_InitStructure);
   ADC_RegularChannelConfig(ADC1, ADC_Channel_5, 0, ADC_SampleTime_239_5Cycles);                 // PA5, NTC
   ADC_RegularChannelConfig(ADC1, ADC_Channel_8, 0, ADC_SampleTime_239_5Cycles);                 // PB0, VIN
