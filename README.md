@@ -1,6 +1,14 @@
 # Custom firmware for T12-958 soldering station
 
-The Quecoo T12-958 / KSGER v2.1S is a T12 soldering station using the MM32SPIN27 Arm processor. These are usage notes. For developers' notes, see [README_DEVELOPER](README_DEVELOPER.md).
+[![Quecoo STM32 V3.1S T12-958](pictures/quecoo-t12-958-small.jpg)](https://raw.githubusercontent.com/koendv/t12-958/main/pictures/quecoo-t12-958.jpg)
+
+[Quecoo STM32 V3.1S T12-958](https://www.aliexpress.com/item/1005003302164155.html)
+
+[![KSGER STM32 OLED V2.01](pictures/ksger_t12_v20_small.jpg)](https://raw.githubusercontent.com/koendv/t12-958/main/pictures/ksger_t12_v20.jpg)
+
+[KSGER STM32 OLED V2.01](https://www.aliexpress.com/item/4000104741034.html)
+
+This is firmware for T12 soldering stations with the MM32SPIN27 Arm processor. These are user notes. For developers' notes, see [README_DEVELOPER](README_DEVELOPER.md).
 
 ## Main screen
 

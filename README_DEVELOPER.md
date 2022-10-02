@@ -9,7 +9,6 @@ The t12-958 soldering station uses an MM32SPIN27 processor. To compile the t12-9
 
 The system console is on RTT.
 
-
 ```
 t12-958
 Thursday 2022/9/22 06:36:37
@@ -31,7 +30,7 @@ The menu on the console and the menu on the oled screen are the same.
 
 ## RTT
 
-On Arm processors, the debugger can read and write processor memory through SWD or JTAG without stopping the processor. Real-Time Terminal RTT uses this to implement a console: the user program writes console output to memory, and the debugger reads it.
+On Arm processors, the debugger can read and write processor memory through SWD or JTAG without stopping the processor. Real-Time Terminal RTT uses this to implement a console: the user program writes console output to a circular buffer, and the debugger reads it.
 
 RTT speed depends upon buffer size:
 
@@ -44,7 +43,7 @@ RTT speed depends upon buffer size:
 |128|125000|
 
 (Speed measured with RTTStream SpeedTest.)
-To save memory, a buffer size of 256 bytes was used. 
+To save memory, a buffer size of 256 bytes was used.
 
 If you wish to have system console on the UART, edit t12-common.h, comment out  RTTStream.h and uncomment Serial.h.
 
@@ -80,7 +79,7 @@ The resulting polynomial converts an adc reading to temperature with four 32-bit
 
 For best accuracy, when measuring the NTC voltage, set the ADC to maximum input impedance. In ``analogSampleTime()`` set the slowest sample rate.
 
-Open-circuit voltage and input impedance at the NTC pads vary considerably between boards. Perhaps putting a voltage follower opamp between NTC and ADC would help. (MM32SPIN27 has four built-in opamps available.) 
+Open-circuit voltage and input impedance at the NTC pads vary considerably between boards. Perhaps putting a voltage follower opamp between NTC and ADC would help. (MM32SPIN27 has four built-in opamps available.)
 
 
 Instead of manually calibrating an analogue temperature sensor it is much more convenient to use factory-calibrated digital sensors.
@@ -112,8 +111,7 @@ ADC_ExternalTrigConvCmd(ADC1, ENABLE);
 	- TIP	 soldering iron thermocouple
 	- ATEMP cpu temperature sensor.
 - DMA reads the samples from the ADC and writes the samples to the array ``adc_value[]``
-- when ``adc_value[]`` is full, an interrupt is generated and 
-``dma1_channel1_irq()`` is called.
+- when ``adc_value[]`` is full, an interrupt is generated and ``dma1_channel1_irq()`` is called.
 
 The net result is that every 200ms voltages are measured, and the results written to memory, without the processor having to do anything.
 
@@ -122,6 +120,10 @@ The net result is that every 200ms voltages are measured, and the results writte
 The rotary encoder is decoded in interrupt-driven software.
 
 The MM32SPIN27 timers have an encoder mode, to decode rotary encoders in hardware. Unfortunately, the pcb connects the two lines from the rotary encoder to processor pins that belong to _different_ timers, so this pcb can not be used to decode a rotary encoder in hardware.
+
+## Floating point
+
+This firmware does not use floating point.
 
 ## Debugger
 
@@ -134,6 +136,3 @@ Various debuggers can be used to download firmware to the MM32SPIN27:
 - The MM32 also supports firmware download via serial port, but on the T12-958 pcb the BOOT0 pin has been soldered to ground.
 
 _not truncated_
-
-
-
