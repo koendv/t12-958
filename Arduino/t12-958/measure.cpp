@@ -7,6 +7,35 @@
 #include "ds18b20_temp.h"
 #include "settings.h"
 #include "smooth.h"
+#include "adcdma.h"
+
+/*
+ * adc interface
+ * dma1_channel1_irq() gets called when new adc values are available in adc_value[]
+ * dma1_channel1_irq() copies adc_value[] to analog_read[]
+ * see adcdma_init()
+ */
+
+#define	ADC_NTC		0
+#define	ADC_VIN		1
+#define	ADC_TIP		2
+#define	ADC_ATEMP	3
+
+int32_t analog_read[ADC_CHANNELS]; // averaged adc readings
+bool adc_flag = false;
+
+extern "C" {
+void dma1_channel1_irq(void)
+{
+  // Serial.print(']');
+  // digitalToggle(UART_TX);
+  for (int i = 0; i < 4; i++)
+  {
+    analog_read[i] = adc_value[i];
+  }
+  adc_flag = true;
+}
+}
 
 /*
  * note:
@@ -119,7 +148,7 @@ int32_t NTCTemp_x10()
   int32_t adc, adc_adjusted;
   int32_t temp_x10;
 
-  adc = analogRead(NTC);
+  adc = analog_read[ADC_NTC];
   ntc_adc = smooth_ntc_adc.data(adc);
   adc_adjusted =
    fast_map(adc, settings.cal_ntc_in1, settings.cal_ntc_in2, settings.cal_ntc_out1, settings.cal_ntc_out2);
@@ -148,7 +177,7 @@ int32_t CPUTemp_x10()
    * - adc is 1800 at 25.0°C
    */
 
-  int32_t adc = analogRead(ATEMP); // value in 0..4095
+  int32_t adc = analog_read[ADC_ATEMP]; // value in 0..4095
   int32_t temp_x10 = fast_map(adc, 0, 1800, -2732, 250);
 
   return (temp_x10);
@@ -159,14 +188,7 @@ int32_t TipTemperature_x10()
 {
   int32_t tip_temp_x10;
 
-  /* Switch off soldering iron to measure thermocouple temperature.
-   * XXX This is very crude.
-   * More sophisticated would be to measure temperature when pwm switches iron off. */
-
-  analogWrite(PWM, 0);
-  delay(20);
-  tip_adc = analogRead(TIP);
-  analogWrite(PWM, iron_pwm);
+  tip_adc = analog_read[ADC_TIP];
 
   flag_no_iron = tip_adc > tip_adc_no_iron;
 
@@ -182,7 +204,7 @@ int32_t TipTemperature_x10()
 
 int32_t SupplyVoltage_mV()
 {
-  int32_t adc_val = analogRead(VIN);
+  int32_t adc_val = analog_read[ADC_VIN];
   // 3.3V full scale is 4095
   // input is a R1(10K) / R2(1K) voltage divider, ratio 1/11.
   int32_t vsupply = fast_map(adc_val, 0, 4095, 0, 3300 * 11);
@@ -193,6 +215,9 @@ int32_t SupplyVoltage_mV()
 
 void TaskADC()
 {
+  while (!adc_flag) {
+    return;
+  }
   /* power supply */
   vsupply_x10 = smooth_vsupply_x10.data(SupplyVoltage_mV() / 100);  // in 0.1V
 
@@ -238,10 +263,21 @@ void setup()
 #ifdef PRINT_NTC_COMPARISON
   CompareNTCCalculations();
 #endif
-  analogReadResolution(12);
-  analogSampleTime(ADC_SAMPLE_TIME_239_5);
   pinMode(VIN, INPUT_ANALOG);
   pinMode(NTC, INPUT_ANALOG);
   pinMode(TIP, INPUT_ANALOG);
+  pinMode(UART_TX, OUTPUT);
+
+  /* because adc and pwm are synchronized, configure adc and pwm at the same time */
+
+  analogReadResolution(12);
+  analogSampleTime(ADC_SAMPLE_TIME_239_5);
+
+  analogWriteResolution(15);
+  analogWriteFrequency(PID_HZ);                 // pwm frequency and adc sampling frequency are the same
+  analogWrite(PWM, 0, PWM_TIM_3);
+  analogWrite(PIN_SAMPLE, 32000, PWM_TIM_3);    // sample 5 ms before the next PWM pulse
+  delay(201);
+  adcdma_init();
 }
 }

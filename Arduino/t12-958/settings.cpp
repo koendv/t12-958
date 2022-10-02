@@ -60,7 +60,12 @@ static const settings_struct default_settings =
   .sleep_time_minutes	=	      30,
   .boost_time_minutes	=	       5,
   .boost_temp		=	      50,
-  .pwm_max		= MAX_PWM/4*3,
+// pwm_max
+// 25 ms minimum dead time: this is when adc samples
+// 20 ms for signals to settle after pwm switches off
+// 5 ms (generous) time for adc to sample
+// 200 ms period - 25 ms idle time = 32768-4096 = 28672
+  .pwm_max		= (MAX_PWM + 1) * 175 / 200,
   .buzzer_enabled	= true,
   .temp_step		=	       5,
   .Kp_x10		=	     400,

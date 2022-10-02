@@ -19,8 +19,6 @@ void setup()
   fast_pid.setCoefficients(settings.Kp_x10, settings.Ki_x10, settings.Kd_x10, PID_HZ*10);
   fast_pid.setOutputConfig(15, false);
   fast_pid.setOutputRange(0, settings.pwm_max);
-  analogWriteResolution(15);
-  analogWriteFrequency(500);
 }
 
 

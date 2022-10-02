@@ -48,7 +48,7 @@ void setup()
   menu_screen::setup();
   main_screen::setup();
   gui::setup();
-  measure::setup();
+  measure::setup(); // configures adc and pwm
   iron::setup();
   ts.enableAll();
   Serial.print(free_ram());

@@ -51,4 +51,7 @@
 // VIN power supply voltage 1/10, analogue input
 #define VIN             PB0
 
+// adc samples when pwm pin PC9 falling
+#define PIN_SAMPLE	PC9
+
 #endif

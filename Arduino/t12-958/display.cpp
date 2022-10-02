@@ -112,7 +112,16 @@ void display_temp()
 
   /* iron temperature */
   u8g2.setFont(u8g2_font_numbers);
-  u8g2.setCursor(tempXPos, tempYPos);
+  // right-align temperature
+  if ((tip_temp_x10 >= 0) && (tip_temp_x10 < 100)) {
+    u8g2.setCursor(tempXPos + u8g2.getStrWidth("88"), tempYPos); // 0 .. 9: move 2 digits to the right
+  } else if ((tip_temp_x10 >= 100) && (tip_temp_x10 < 1000)) {
+    u8g2.setCursor(tempXPos + u8g2.getStrWidth("8"), tempYPos); // 10 .. 99: move 1 digit to the right
+  } else if ((tip_temp_x10 > -100) && (tip_temp_x10 <= -10)) {
+    u8g2.setCursor(tempXPos + u8g2.getStrWidth("8"), tempYPos); // -9 .. -1: move 1 digit to the right
+  } else {
+    u8g2.setCursor(tempXPos, tempYPos);
+  }
   u8g2.print(tip_temp_x10/10);
   u8g2.print(degrees);
   u8g2.setFont(u8g2_font_small);
