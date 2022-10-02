@@ -1,6 +1,10 @@
 #ifndef _ADCDMA_H_
 #define	_ADCDMA_H_
 
+#ifdef __cplusplus
+extern "C" {
+#endif
+
 #include <stdint.h>
 
 // number of adc channels
@@ -14,5 +18,9 @@ extern uint16_t adc_value[ADC_CHANNELS*ADC_SAMPLES];
 extern void adcdma_init();
 // irq handler - gets called when adc_value[] full
 extern void dma1_channel1_irq(void);
+
+#ifdef __cplusplus
+}
+#endif
 
 #endif

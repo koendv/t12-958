@@ -4,7 +4,8 @@
 /*
  * PWM, ADC, DMA, IRQ
  *
- * ADC1 samples when triggered by TIMER3, CHANNEL4 (pin 
+ * ADC1 samples when triggered by TIMER3, CHANNEL4 (pin PC9 falling)
+ * set sample moment with e.g. analogWrite(PC9, 32000, PWM_TIM_3);
  * ADC1 samples 4 channels:
  * - NTC
  * - VIN 24V power supply
@@ -27,7 +28,7 @@
 // in order: NTC, VIN, TIP, ATEMP, AVREF
 uint16_t adc_value[ADC_CHANNELS*ADC_SAMPLES];
 
-#if 1
+#if 0
 void dma1_channel1_irq(void)
 {
   SEGGER_RTT_WriteString(0, "]");
@@ -40,7 +41,7 @@ static void t12_dma_init(void)
   DMA_InitTypeDef DMA_InitStructure;
   NVIC_InitTypeDef NVIC_InitStruct;
 
-  SEGGER_RTT_WriteString(0, "dma init\n");
+  //SEGGER_RTT_WriteString(0, "dma init\n");
   RCC_AHBPeriphClockCmd(RCC_AHBPeriph_DMA1, ENABLE);
   DMA_DeInit(DMA1_Channel1);
   //DMA transfer peripheral address
@@ -79,7 +80,7 @@ static void t12_dma_init(void)
 
 static void t12_adc_init()
 {
-  SEGGER_RTT_WriteString(0, "adc init\n");
+  //SEGGER_RTT_WriteString(0, "adc init\n");
   ADC_InitTypeDef ADC_InitStructure;
   ADC_StructInit(&ADC_InitStructure);
   RCC_APB2PeriphClockCmd(RCC_APB2Periph_ADC1, ENABLE);
