@@ -57,7 +57,15 @@ To measure the temperature in the soldering iron handle, four methods are possib
 
 The microcontroller has an internal temperature sensor.  As the microcontroller heats up during operation, the internal temperature of the microcontroller may be different from the temperature of the cold junction.
 
-CPU is the default temperature sensor. Please change to NTC or ONEWIRE, depending upon sensor used in the soldering iron handle.
+CPU is the default temperature sensor. Please change to NTC or ONEWIRE, depending upon sensor used in the soldering iron handle, and save the settings.
+
+E.g. for DS18B20, in the menu:
+
+- Cold End ⇨ Sensor ONEWIRE
+- Back
+- Save and Recall ⇨ Save
+- Back
+- Back
 
 ### NTC Temperature sensor
 

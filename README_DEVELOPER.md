@@ -85,6 +85,38 @@ Open-circuit voltage and input impedance at the NTC pads vary considerably betwe
 
 Instead of manually calibrating an analogue temperature sensor it is much more convenient to use factory-calibrated digital sensors.
 
+
+## ADC
+
+The analog-to-digital converter ADC is synchronized with the pulse-width modulation PWM. This way the ADC samples when PWM is zero, and all signals have settled.
+
+File ``adcdma.c`` handles adc:
+
+- Soldering iron PWM uses TIMER3, CHANNEL1.
+```
+analogWrite(PA6, iron_pwm, PWM_TIM_3);
+```
+- TIMER3, CHANNEL 4 generates a falling pulse on pin PC9, 5ms before the next PWM cycle begins. It does not matter that the package does not have a pin PC9.
+```
+analogWrite(PC9, 32000, PWM_TIM_3);
+```
+- the ADC samples when triggered by TIMER3, CHANNEL4:
+```
+ADC_InitStructure.ADC_ExternalTrigConv = ADC1_ExternalTrigConv_T3_CC4;
+...
+ADC_ExternalTrigConvCmd(ADC1, ENABLE);
+```
+- The ADC samples 4 channels:
+	- NTC voltage
+	- VIN 24V power supply
+	- TIP	 soldering iron thermocouple
+	- ATEMP cpu temperature sensor.
+- DMA reads the samples from the ADC and writes the samples to the array ``adc_value[]``
+- when ``adc_value[]`` is full, an interrupt is generated and 
+``dma1_channel1_irq()`` is called.
+
+The net result is that every 200ms voltages are measured, and the results written to memory, without the processor having to do anything.
+
 ## Rotary Encoder
 
 The rotary encoder is decoded in interrupt-driven software.
