@@ -7,7 +7,7 @@ The t12-958 soldering station uses an MM32SPIN27 processor. To compile the t12-9
 
 ## Console
 
-The system console is on RTT.
+RTT Real-Time Terminal is serial port over SWD. RTT is used as console. Using RTT as console frees up the UART pins for other uses, e.g. connecting a temperature sensor.
 
 ```
 t12-958
@@ -30,7 +30,7 @@ The menu on the console and the menu on the oled screen are the same.
 
 ## RTT
 
-On Arm processors, the debugger can read and write processor memory through SWD or JTAG without stopping the processor. Real-Time Terminal RTT uses this to implement a console: the user program writes console output to a circular buffer, and the debugger reads it.
+On Arm processors, the debugger can read and write processor memory through SWD or JTAG without stopping the processor. RTT Real-Time Terminal uses this to implement a console: the user program writes console output to a circular buffer, and the debugger reads and prints the console output.
 
 RTT speed depends upon buffer size:
 
