@@ -79,16 +79,6 @@ To measure the temperature in the soldering iron handle, four methods are possib
 
 The microcontroller has an internal temperature sensor.  As the microcontroller heats up during operation, the internal temperature of the microcontroller may be different from the temperature of the cold junction.
 
-CPU is the default temperature sensor. Please change to NTC or ONEWIRE, depending upon sensor used in the soldering iron handle, and save the settings.
-
-E.g. for DS18B20, in the menu:
-
-- Cold End ⇨ Sensor ONEWIRE
-- Back
-- Save and Recall ⇨ Save
-- Back
-- Back
-
 ### NTC Temperature sensor
 
 A separate document, [README_NTC](README_NTC.md), handles configuring the NTC temperature sensor.
@@ -131,6 +121,18 @@ Compared to a Maxim DS18B20, the CT1820B uses less power (30&micro;A, as long as
 #### DS18B20 on pcb
 
 If you do not wish to modify the soldering iron handle, you can simply connect a DS18B20 to the pcb pin header. The pin header has ground and 3.3V for the pull-up resistor.
+
+### Changing temperature sensor
+
+CPU is the default temperature sensor. Please change to NTC or ONEWIRE, depending upon sensor used in the soldering iron handle, and save the settings.
+
+E.g. for DS18B20, in the menu:
+
+- Cold End ⇨ Sensor ONEWIRE
+- Back
+- Save and Recall ⇨ Save
+- Back
+- Back
 
 ## Downloading firmware
 
