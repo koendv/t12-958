@@ -1,9 +1,10 @@
 #include <U8g2lib.h>
 #include <SPI.h>
 #include <menu.h>
-#include <menuIO/keyIn.h>
+//#include <menuIO/keyIn.h>
 //#include <menuIO/encoderIn.h>
-// use T12 encoder instead of ArduinoMenu encoder
+// use T12 button and encoder instead of ArduinoMenu button and encoder
+#include "keyIn.h"
 #include "encoderIn.h"
 #include <menuIO/serialIn.h>
 #include <menuIO/chainStream.h>
