@@ -60,15 +60,21 @@ int32_t DS18B20Temp_x10()
   t = sensor.getTemp(addr); // temperature in 1/128 degree C
   sensor.requestTemperatures();
   if (t == DEVICE_DISCONNECTED_RAW) {
-    Serial.println("\nds18b20 disconnected");
+    if (ds18b20_timeout == 0) {
+      Serial.println("\nds18b20 disconnected");
+    }
     ds18b20_timeout++;
     return (ERROR_TEMP);
   }else if (t == DEVICE_FAULT_OPEN_RAW) {
-    Serial.println("\nds18b20 fault open");
+    if (ds18b20_timeout == 0) {
+      Serial.println("\nds18b20 fault open");
+    }
     ds18b20_timeout++;
     return (ERROR_TEMP);
   }else if (t == DEVICE_FAULT_SHORTVDD_RAW) {
-    Serial.println("\nds18b20 fault shortvdd");
+    if (ds18b20_timeout == 0) {
+      Serial.println("\nds18b20 fault shortvdd");
+    }
     ds18b20_timeout++;
     return (ERROR_TEMP);
   }
