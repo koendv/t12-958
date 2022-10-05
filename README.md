@@ -14,34 +14,48 @@ This is firmware for T12 soldering stations with the MM32SPIN27 Arm processor. T
 
 The soldering station has four states: running, boost, standby and sleeping.
 
+### Running
+
 ![running](pictures/running_large.png)
 
 When running, the top line of the display shows power supply voltage, setpoint temperature, and cold junction (ambient) temperature.
 The middle of the display shows soldering iron tip temperature.
 The bottom of the display shows a bar graph of applied heating power.
 
+### Setpoint
+
 ![setpoint](pictures/setpoint_large.png)
 
 The soldering station has a rotary encoder with pushbutton.
 Turning the knob changes setpoint temperature in steps (default: steps of 5°C). For fine adjustments in steps of 1°C first turn  the knob, then push while turning. The setpoint is displayed in inverted color.
 
+### Boost
+
 ![boost](pictures/boost_large.png)
 
 When running, a short click of the knob will switch to boost mode. In boost mode, setpoint temperature is increased for a short time. (default: increase of 50°C for 5 minutes)
+
+### Standby
 
 ![standby](pictures/standby_large.png)
 
 If the soldering station is inactive, after some time the soldering station goes in standby. (default: 20 minutes of inactivity, standby temperature 200°C).
 
+### Sleep
+
 ![sleep](pictures/sleep_large.png)
 
 If the soldering station is inactive even longer, the soldering station goes into sleep mode. (default: 30 minutes of inactivity, heating switched off).
+
+### No tip
 
 ![no iron](pictures/no_iron_large.png)
 
 If no T12 tip is detected, a T12 soldering tip is shown. 
 
 A short click will switch the soldering station from running ⇨ boost ⇨ standby ⇨ sleep ⇨ running.
+
+### Menu
 
 ![menu](pictures/menu_large.png)
 
