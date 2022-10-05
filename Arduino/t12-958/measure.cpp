@@ -22,6 +22,7 @@
 #define	ADC_ATEMP	3
 
 int32_t analog_read[ADC_CHANNELS]; // averaged adc readings
+int32_t ds18b20_temp_x10 = 0;
 bool adc_flag = false;
 
 extern "C" {
@@ -213,9 +214,18 @@ int32_t SupplyVoltage_mV()
 }
 
 
+void TaskColdJunction()
+{
+  if (settings.tempsensor == DS18B20_TEMPSENSOR) {
+    ds18b20_temp_x10 = DS18B20Temp_x10();
+  }
+}
+
+
 void TaskADC()
 {
-  while (!adc_flag) {
+  while (!adc_flag)
+  {
     return;
   }
   /* power supply */
@@ -238,7 +248,7 @@ void TaskADC()
     break;
 
   case DS18B20_TEMPSENSOR:
-    temp_x10 = DS18B20Temp_x10();
+    temp_x10 = ds18b20_temp_x10;
     break;
 
   case NO_TEMPSENSOR:

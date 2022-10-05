@@ -28,6 +28,7 @@ T12Encoder encoder;
 U8G2_SH1106_128X64_NONAME_F_4W_HW_SPI u8g2(U8G2_R0, DISPLAY_CS, DISPLAY_DC, DISPLAY_RST);
 
 Task task_gui(20, TASK_FOREVER, &gui::TaskGUI, &ts);
+Task task_cj(3000, TASK_FOREVER, &measure::TaskColdJunction, &ts);
 Task task_adc(100, TASK_FOREVER, &measure::TaskADC, &ts);
 Task tBuzzer(1, TASK_ONCE, NULL, &ts);
 Task task_iron(1000/PID_HZ, TASK_FOREVER, &iron::TaskIron, &ts);
