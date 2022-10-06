@@ -124,15 +124,12 @@ If you do not wish to modify the soldering iron handle, you can simply connect a
 
 ### Changing temperature sensor
 
-CPU is the default temperature sensor. Please change to NTC or ONEWIRE, depending upon sensor used in the soldering iron handle, and save the settings.
+DS18B20 is the default temperature sensor. Change, depending upon sensor used in the soldering iron handle, and save the settings.
 
 E.g. for DS18B20, in the menu:
 
 - Cold End ⇨ Sensor ONEWIRE
-- Back
 - Save and Recall ⇨ Save
-- Back
-- Back
 
 ## Downloading firmware
 
