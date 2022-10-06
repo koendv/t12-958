@@ -124,11 +124,12 @@ If you do not wish to modify the soldering iron handle, you can simply connect a
 
 ### Changing temperature sensor
 
-DS18B20 is the default temperature sensor. Change, depending upon sensor used in the soldering iron handle, and save the settings.
+DS18B20 is the default temperature sensor, it's what I use. This can be changed in the menu.
 
 E.g. for DS18B20, in the menu:
 
-- Cold End ⇨ Sensor ONEWIRE
+- press button more than 1 second to enter menu
+- Cold End ⇨ Sensor ⇨ ONEWIRE
 - Save and Recall ⇨ Save
 
 ## Downloading firmware
