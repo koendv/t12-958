@@ -51,7 +51,7 @@ If you wish to have system console on the UART, edit t12-common.h, comment out  
 
 The menu system is [ArduinoMenu](https://github.com/neu-rah/ArduinoMenu), with the following tweaks:
 
-- use interrupt-driven rotary encoder as input (file t12-958/encoderIn.h)
+- use interrupt-driven rotary encoder and button as input (file t12-958/encoderIn.h, t12-958/keyIn.h), same as rest of system
 - accept arrow keys as input on the serial console (file ArduinoMenu_library/src/nav.cpp)
 - custom field to print fixed point numbers (class FPx10 in t12-958/menu_screen.cpp )
 
@@ -62,6 +62,14 @@ Graphics are [U8G2](https://github.com/olikraus/u8g2) on a SPI 128x64 OLED. A ch
 ## PID controller
 
 The proportional–integral–derivative controller is [FastPID](https://github.com/mike-matera/FastPID), patched to use fixed point Kp, Ki, Kd instead of floating point.
+
+Typical relationship between termocouple temperature and heater PWM: (TC temp in Celsius, PWM from 0 to 32767)
+
+|TC temp|PWM|
+|---|---|
+|200|2300|
+|300|4000|
+|400|6000|
 
 ## NTC Temperature sensor
 

@@ -70,7 +70,7 @@ void TaskIron()
 
     // to avoid PID wind-up, start PID controller at 10C below setpoint
     // full pwm from cold start to 10C below setpoint
-    if (tip_temp_x10 < setpoint_x10 - 200) {
+    if (tip_temp_x10 < setpoint_x10 - 1000) {
       full_power = true; // cold start
     }
     if (tip_temp_x10 > setpoint_x10 - 100) {
@@ -93,6 +93,15 @@ void TaskIron()
     Serial.println("pwm idle too short");
     iron_pwm = settings.pwm_max;
   }
+
+#if 0
+  // logging, for csv spreadsheet
+  Serial.print(millis());
+  Serial.print('\t');
+  Serial.print(iron_pwm);
+  Serial.print('\t');
+  Serial.println(thermocouple_temp_x10);
+#endif
 
   // set display power bar
   power_bar = iron_pwm * MAX_POWER_BAR / (MAX_PWM + 1);
