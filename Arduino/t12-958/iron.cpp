@@ -70,10 +70,10 @@ void TaskIron()
 
     // to avoid PID wind-up, start PID controller at 10C below setpoint
     // full pwm from cold start to 10C below setpoint
-    if (unsmoothed_tip_temp_x10 < setpoint_x10 - 200) {
+    if (tip_temp_x10 < setpoint_x10 - 200) {
       full_power = true; // cold start
     }
-    if (unsmoothed_tip_temp_x10 > setpoint_x10 - 100) {
+    if (tip_temp_x10 > setpoint_x10 - 100) {
       full_power = false; // pid controller takes over
     }
 

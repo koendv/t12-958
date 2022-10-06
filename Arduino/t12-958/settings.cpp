@@ -78,7 +78,7 @@ static const settings_struct default_settings =
   .cal_adc_at_0		=	       0,
   .cal_adc_at_250	=	    1900,
   .cal_adc_at_400	=	    2800,
-  .tempsensor		= CPU_TEMPSENSOR,
+  .tempsensor		= DS18B20_TEMPSENSOR,
   .poweron		= POWERON_SLEEP,
 };
 
