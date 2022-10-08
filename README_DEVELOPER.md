@@ -30,7 +30,7 @@ The menu on the console and the menu on the oled screen are the same.
 
 ## RTT
 
-On Arm processors, the debugger can read and write processor memory through SWD or JTAG without stopping the processor. RTT Real-Time Terminal uses this to implement a console: the user program writes console output to a circular buffer, and the debugger reads and prints the console output.
+On Arm processors, the debugger can read and write processor memory through SWD or JTAG without stopping the processor. RTT Real-Time Terminal uses this to implement a console: the user program writes console output to a circular buffer, and the debugger reads the circular buffer and prints the console output.
 
 RTT speed depends upon buffer size:
 
@@ -131,7 +131,7 @@ The MM32SPIN27 timers have an encoder mode, to decode rotary encoders in hardwar
 
 ## Floating point
 
-This firmware does not use floating point.
+This firmware does not use floating point. This is a design choice.
 
 ## Debugger
 

@@ -73,7 +73,7 @@ Other settings have to be saved manually. Go to the "Settings" menu, and choose 
 
 The soldering iron tip contains a thermocouple. The thermocouple gives the temperature difference between soldering iron tip and soldering iron handle. To know the temperature of the soldering iron tip, one has to add the temperature of the soldering iron handle (the cold junction temperature) and the temperature given by the thermocouple.
 
-To measure the temperature in the soldering iron handle, four methods are possible: CPU, NTC on PCB, NTC in handle, and DS18B20.
+To measure the temperature in the soldering iron handle, three sensors are available: CPU, NTC, and DS18B20.
 
 ### CPU Temperature sensor
 
@@ -87,7 +87,7 @@ Instead of manually calibrating an analogue temperature sensor it is much more c
 
 ### DS18B20  Temperature Sensor
 
-The DS18B20 is a digital one-wire temperature sensor. "One-wire" refers to the possibility of powering the sensor, and reading the temperature using only one wire.
+The DS18B20 is a digital one-wire temperature sensor. [One-wire](https://en.wikipedia.org/wiki/1-Wire) refers to the possibility of powering the sensor, and reading the temperature using only one wire.
 
 #### DS18B20 in handle
 
