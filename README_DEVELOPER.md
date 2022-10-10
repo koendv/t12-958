@@ -133,7 +133,7 @@ The MM32SPIN27 timers have an encoder mode, to decode rotary encoders in hardwar
 
 This firmware does not use floating point. This is a design choice.
 
-There's enough cpu to run PID in software floating point, if you wish. (tested with [Arduino-PID-Library](https://github.com/br3ttb/Arduino-PID-Library/)
+There's enough cpu to run PID in software floating point. Tested with [Arduino-PID-Library(https://github.com/br3ttb/Arduino-PID-Library/)
 
 ## Settings
 
