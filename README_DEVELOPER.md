@@ -133,6 +133,12 @@ The MM32SPIN27 timers have an encoder mode, to decode rotary encoders in hardwar
 
 This firmware does not use floating point. This is a design choice.
 
+There's enough cpu to run PID in software floating point. (tested with [Arduino-PID-Library(https://github.com/br3ttb/Arduino-PID-Library/)
+
+## Settings
+
+Settings that are changed only infrequently are stored in MM32SPIN27 flash. Temperature setpoint is stored in DS1302Z battery-backed up ram. This avoids wearing out flash.
+
 ## Debugger
 
 Various debuggers can be used to download firmware to the MM32SPIN27:
