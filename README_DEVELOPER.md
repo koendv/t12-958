@@ -123,6 +123,10 @@ ADC_ExternalTrigConvCmd(ADC1, ENABLE);
 
 The net result is that every 200ms voltages are measured, and the results written to memory, without the processor having to do anything.
 
+PWM switches a 24V signal, while the termocouple voltage is 1-10mV. To allow voltages to settle, wait 20ms between PWM signal going down and the ADC sampling.
+
+Sampling takes place 20ms after the PWM signal goes down and 5ms before the PWM signal rises. This determines the maximum pwm value allowed. (pwm_max in settings.cpp)
+
 ## Rotary Encoder
 
 The rotary encoder is decoded in interrupt-driven software.
