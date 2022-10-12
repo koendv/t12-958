@@ -98,6 +98,7 @@ For best results, put a DS18B20 in the soldering iron handle. This requires open
 [![ds18b20 in handle](pictures/ds18b20_in_handle_small.jpg)](pictures/ds18b20_in_handle.jpg)
 
 DS18B20 in soldering iron handle. The DS18B20 has a TO-92 package, like a leaded small-signal transistor.
+[schematic](pictures/t12_handle.pdf) of the handle with and without mod.
 
 To avoid short-circuits, cover everything in Kapton tape. Make sure blank metal does not touch other blank metal. Make sure vibration sensor leads do not make contact with temperature sensor leads.
 
