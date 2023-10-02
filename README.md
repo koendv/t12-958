@@ -51,7 +51,7 @@ If the soldering station is inactive even longer, the soldering station goes int
 
 ![no iron](pictures/no_iron_large.png)
 
-If no T12 tip is detected, a T12 soldering tip is shown. 
+If no T12 tip is detected, a T12 soldering tip is shown.
 
 A short click will switch the soldering station from running ⇨ boost ⇨ standby ⇨ sleep ⇨ running.
 
@@ -146,7 +146,11 @@ To download firmware, connect a debugger probe to the SWD connector:
 |D|PB6|UART TX|
 |F|PB7|UART RX|
 
-To download firmware, a Segger JLink debugger can be used. MM32SPIN32 is not directly supported by JLink, but configuring as a MM32L072XX works.
+Both commercial and open source debuggers can be used to download firmware to MM32SPIN27.
+
+### Segger JLink
+
+The Segger JLink debugger does not support MM32SPIN27 directly, but configuring as a MM32L072XX works.
 
 ```
 JLinkGDBServer -device MM32L072XX -if SWD -speed 1000
@@ -194,6 +198,57 @@ Remote connection closed
 ```
 
 In the above, at the message "continuing", there is a short beep and the display lights up.
+
+### Black Magic Probe
+
+The open source Black Magic Probe supports MM32. To download:
+```bash
+ $ /opt/xpack-arm-none-eabi-gcc-10.3.1-2.3/bin/arm-none-eabi-gdb -q
+(gdb) tar ext /dev/ttyBmpGdb
+Remote debugging using /dev/ttyBmpGdb
+(gdb) mon ver
+Black Magic Probe (BlackPill-F411CE) 08583c1-dirty, Hardware Version 0
+Copyright (C) 2022 Black Magic Debug Project
+License GPLv3+: GNU GPL version 3 or later <http://gnu.org/licenses/gpl.html>
+
+(gdb) mon swd
+Available Targets:
+No. Att Driver
+ 1      MM32SPIN27 M0
+(gdb) at 1
+Attaching to Remote target
+warning: No executable has been specified and target does not support
+determining executable automatically.  Try using the "file" command.
+0x0800a5f8 in ?? ()
+(gdb) file ~/Arduino/t12-958/build/SeekFree.mm32.MM32SPIN27/t12-958.ino.elf
+A program is being debugged already.
+Are you sure you want to change the file? (y or n) y
+Reading symbols from ~/Arduino/t12-958/build/SeekFree.mm32.MM32SPIN27/t12-958.ino.elf...
+(gdb) lo
+Loading section .isr_vector, size 0xc0 lma 0x8000000
+Loading section .text, size 0xdb4c lma 0x80000c0
+Loading section .rodata, size 0x34f8 lma 0x800e000
+Loading section .ARM, size 0x8 lma 0x80114f8
+Loading section .init_array, size 0x38 lma 0x8011500
+Loading section .fini_array, size 0x10 lma 0x8011538
+Loading section .data, size 0xde4 lma 0x8011548
+Start address 0x0800a660, load size 73528
+Transfer rate: 26 KB/sec, 919 bytes/write.
+(gdb) compare-sections
+Section .isr_vector, range 0x8000000 -- 0x80000c0: matched.
+Section .text, range 0x80000c0 -- 0x800dc0c: matched.
+Section .rodata, range 0x800e000 -- 0x80114f8: matched.
+Section .ARM, range 0x80114f8 -- 0x8011500: matched.
+Section .init_array, range 0x8011500 -- 0x8011538: matched.
+Section .fini_array, range 0x8011538 -- 0x8011548: matched.
+Section .data, range 0x8011548 -- 0x801232c: matched.
+(gdb) c
+Continuing.
+
+```
+## Warning
+
+*Please be very careful when modifying a solder iron.* One faulty connection, one wrong line of code and the soldering iron glows red hot. Do not leave a soldering iron unattended.
 
 ## Acknowledgment
 
