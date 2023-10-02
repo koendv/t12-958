@@ -242,13 +242,35 @@ Section .ARM, range 0x80114f8 -- 0x8011500: matched.
 Section .init_array, range 0x8011500 -- 0x8011538: matched.
 Section .fini_array, range 0x8011538 -- 0x8011548: matched.
 Section .data, range 0x8011548 -- 0x801232c: matched.
-(gdb) c
-Continuing.
-
+(gdb) r
+The program being debugged has been started already.
+Start it from the beginning? (y or n) y
 ```
 ## Warning
 
-*Please be very careful when modifying a solder iron.* One faulty connection, one wrong line of code and the soldering iron glows red hot. Do not leave a soldering iron unattended.
+*Carefully consider risks and consequences of modifying a solder iron.* One faulty connection, one wrong line of code and the soldering iron glows red hot. Do not leave a soldering iron unattended.
+
+## License
+
+Copyright (c) 2022 Koen De Vleeschauwer
+
+Permission is hereby granted, free of charge, to any person obtaining a copy
+of this software and associated documentation files (the "Software"), to deal
+in the Software without restriction, including without limitation the rights
+to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+copies of the Software, and to permit persons to whom the Software is
+furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in all
+copies or substantial portions of the Software.
+
+**THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+SOFTWARE.**
 
 ## Acknowledgment
 
