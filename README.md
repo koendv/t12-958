@@ -246,6 +246,10 @@ Section .data, range 0x8011548 -- 0x801232c: matched.
 The program being debugged has been started already.
 Start it from the beginning? (y or n) y
 ```
+
+A note of caution here. I've successfully used Black Magic Probe on a MM32SPIN27 that already had the write protection removed.
+What has not been tested is whether Black Magic Probe is able to remove the write protection itself (modifying the option bits with ```mon option```).
+
 ## Warning
 
 *Carefully consider risks and consequences of modifying a solder iron.* One faulty connection, one wrong line of code and the soldering iron glows red hot. Do not leave a soldering iron unattended.
